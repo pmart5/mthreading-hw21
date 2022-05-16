@@ -8,7 +8,7 @@ public class CarFactory {
     public static final int CAR_RELEASE_PLAN = 11;
     public static final int TIME_ASSEMBLY_CAR = 3000;
     public static final int TIME_TO_SHOP = 1000;
-    private static boolean stopSales = false;
+    private boolean stopSales = false;
     private final CarDealership carDealership;
 
     public CarFactory(CarDealership carDealership) {
