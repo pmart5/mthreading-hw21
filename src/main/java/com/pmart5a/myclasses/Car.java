@@ -1,21 +1,10 @@
 package com.pmart5a.myclasses;
 
-import java.util.Random;
-
 public class Car {
 
-    private static final String[] carModels = {"Тарантас", "Вжик", "Вездеход"};
-    private static final int[] enginePowers = {90, 370, 700};
-
-    private String carBrand = "ЖМИ";
+    private String carBrand;
     private String carModel;
     private int enginePower;
-
-    public Car() {
-        int modelNumber = getCarModelRandom();
-        carModel = carModels[modelNumber];
-        enginePower = enginePowers[modelNumber];
-    }
 
     public Car(String carBrand, String carModel, int enginePower) {
         this.carBrand = carBrand;
@@ -45,10 +34,6 @@ public class Car {
 
     public void setEnginePower(int enginePower) {
         this.enginePower = enginePower;
-    }
-
-    private int getCarModelRandom(){
-        return new Random().nextInt(carModels.length);
     }
 
     @Override

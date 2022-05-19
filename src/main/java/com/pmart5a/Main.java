@@ -4,14 +4,15 @@ import com.pmart5a.myclasses.CarDealership;
 
 public class Main {
 
+    public static final int NUMBER_OF_TREADS = 5;
+
     public static void main(String[] args) {
         final CarDealership carDealership = new CarDealership();
-        String[] nameThreads = {"1 покупатель", "2 покупатель", "3 покупатель", "4 покупатель", "Автозавод"};
-        for (int i = 0; i < nameThreads.length; i++) {
-            if (i < nameThreads.length - 1) {
-                new Thread(null, carDealership::sellCar, nameThreads[i]).start();
+        for (int i = 0; i < NUMBER_OF_TREADS; i++) {
+            if (i == 0) {
+                new Thread(null, carDealership::acceptCar, "Автозавод").start();
             } else {
-                new Thread(null, carDealership::acceptCar, nameThreads[i]).start();
+                new Thread(null, carDealership::sellCar, i + " покупатель").start();
             }
         }
     }
