@@ -10,9 +10,9 @@ public class Main {
         final CarDealership carDealership = new CarDealership();
         for (int i = 0; i < NUMBER_OF_TREADS; i++) {
             if (i == 0) {
-                new Thread(null, carDealership::acceptCar, "Автозавод").start();
+                new Thread(null, carDealership::acceptCars, "Автозавод").start();
             } else {
-                new Thread(null, carDealership::sellCar, i + " покупатель").start();
+                new Thread(null, carDealership::sellCars, i + " покупатель").start();
             }
         }
     }
