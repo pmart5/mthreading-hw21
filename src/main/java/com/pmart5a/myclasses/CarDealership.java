@@ -6,6 +6,7 @@ import java.util.List;
 public class CarDealership {
 
     public static final int TIME_TO_SHOP = 1000;
+    public static final int DELIVERY_TIME = 1000;
     public static final int CAR_SUPPLY_PLAN = 10;
     private static final List<Car> cars = new ArrayList<>(CAR_SUPPLY_PLAN);
     private final CarFactory carFactory = new CarFactory();
@@ -15,7 +16,7 @@ public class CarDealership {
         for (int i = 0; i < CAR_SUPPLY_PLAN; i++) {
             acceptOneCar();
             try {
-                Thread.sleep(TIME_TO_SHOP);
+                Thread.sleep(DELIVERY_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -35,28 +36,28 @@ public class CarDealership {
     }
 
     public synchronized void acceptOneCar() {
-            getCars().add(carFactory.assembleTheCar());
-            System.out.printf("%s: выпущен 1 автомобиль.\n", Thread.currentThread().getName());
-            notifyAll();
+        getCars().add(carFactory.assembleTheCar());
+        System.out.printf("%s: выпущен 1 автомобиль.\n", Thread.currentThread().getName());
+        notifyAll();
     }
 
     public synchronized void sellOneCar(List<Car> purchasedCars) {
-            try {
-                System.out.printf("%s зашёл в автосалон.\n", Thread.currentThread().getName());
-                if (getCars().isEmpty()) {
-                    System.out.println("Машин нет!");
-                    wait();
-                } else {
-                    Car car = getCars().remove(0);
-                    Thread.sleep(TIME_TO_SHOP);
-                    System.out.printf("%s уехал на новом авто марки '%s' модель '%s %d'.\n",
-                            Thread.currentThread().getName(), car.getCarBrand(), car.getCarModel(),
-                            car.getEnginePower());
-                    purchasedCars.add(car);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        try {
+            System.out.printf("%s зашёл в автосалон.\n", Thread.currentThread().getName());
+            if (getCars().isEmpty()) {
+                System.out.println("Машин нет!");
+                wait();
+            } else {
+                Car car = getCars().remove(0);
+                Thread.sleep(TIME_TO_SHOP);
+                System.out.printf("%s уехал на новом авто марки '%s' модель '%s %d'.\n",
+                        Thread.currentThread().getName(), car.getCarBrand(), car.getCarModel(),
+                        car.getEnginePower());
+                purchasedCars.add(car);
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     static List<Car> getCars() {
